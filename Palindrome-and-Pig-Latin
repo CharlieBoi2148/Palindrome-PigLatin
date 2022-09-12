@@ -1,0 +1,97 @@
+public class StringUtil {
+    private String phrase;
+
+    public StringUtil(String phrase){
+        this.phrase=phrase;
+    }
+    public static String reverseStringUtil(String phrase){
+        String output="";
+
+        for (int i = phrase.length()-1; i >= 0; i--){
+            output=output+phrase.charAt(i);
+        }
+//
+        return output;
+    }
+    public static boolean palindromeChecker(String phrase){
+        String output="";
+        phrase=phrase.replace(" ","");
+        phrase=phrase.toLowerCase();
+        phrase=phrase.replaceAll("[^a-zA-Z0-9]", "");
+        phrase=phrase.toLowerCase();
+        for (int i = phrase.length()-1; i >= 0; i--){
+            output=output+phrase.charAt(i);
+        }
+//        return phrase+"       "+output;
+        if (output.equals(phrase)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static String pigLatin(String phrase){
+        String lowerCase="";
+        String upperCase="";
+        int repeatCounter=0;
+        String vowelCheck = "";
+        String totalPhrase = "";
+        String[] vowels = new String[]{"a", "e", "i", "o", "u",};
+        String word = "";
+        String[] words = phrase.split(" ");
+        for (String boi : words) {
+            word = boi;
+            repeatCounter=0;
+            for (String boi1 : vowels) {
+                vowelCheck = boi1;
+                if (vowelCheck.equals(word.substring(0, 1)) == true) {
+                    totalPhrase=totalPhrase+word + "yay ";
+                    break;
+                }
+                if (word.matches(".*[a,e,i,o,u,A,E,I,O,U].*") == false) {
+                    totalPhrase=totalPhrase+word + "ay ";
+                    break;
+                }
+                if (word.contains(vowelCheck)) {
+                    if (repeatCounter == 0) {
+                        for (int i = 0; i < word.length(); i++) {
+                            if (word.substring(0+i,1+i).matches(".*[a,e,i,o,u,A,E,I,O,U].*")){
+                                if (word.substring(0,1).matches("[A-Z]")==false){
+                                    totalPhrase=totalPhrase+word.substring(i,word.length())+word.substring(0,i)+"ay ";
+                                    repeatCounter = repeatCounter + 1;
+                                     break;
+                                } else {
+                                    lowerCase=word.substring(i,word.length())+word.substring(0,i)+"ay ";
+                                    lowerCase=lowerCase.toLowerCase();
+                                    upperCase=lowerCase.substring(0,1).toUpperCase()+lowerCase.substring(1,lowerCase.length());
+                                    totalPhrase=totalPhrase+upperCase;
+                                    repeatCounter = repeatCounter + 1;
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        return totalPhrase;
+    }
+
+
+
+    public static String shortHand(String phrase){
+
+        phrase=phrase.replace("and","&");
+        phrase=phrase.replace("to","2");
+
+        phrase=phrase.replace("for","4");
+
+        phrase=phrase.replaceAll("[a,e,i,o,u,A,E,I,O,U]","");
+
+        phrase=phrase.replace(" y "," U ");
+
+        return phrase;
+    }
+
+}
